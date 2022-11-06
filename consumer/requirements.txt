@@ -1,0 +1,6 @@
+requests
+kafka
+pydantic
+elastic-apm
+elasticsearch~=8.5.0
+decouple

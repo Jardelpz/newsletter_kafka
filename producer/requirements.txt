@@ -1,0 +1,8 @@
+flask~=2.2.2
+redis~=4.3.4
+flask_restful
+elastic-apm
+elasticsearch~=8.5.0
+pydantic~=1.10.2
+requests~=2.28.1
+pydantic-sqlite
