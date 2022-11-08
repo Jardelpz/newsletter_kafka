@@ -3,6 +3,7 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper:6.1.1
+    container_name: zookeper
     ports:
       - "2181:2181"
     environment:
@@ -11,6 +12,7 @@ services:
   # reachable on 9092 from the host and on 29092 from inside docker compose
   kafka:
     image: confluentinc/cp-kafka:6.1.1
+    container_name: kafka
     depends_on:
       - zookeeper
     ports:
@@ -41,3 +43,51 @@ services:
       echo -e 'Successfully created the following topics:'
       kafka-topics --bootstrap-server kafka:29092 --list
       "
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379:6379"
+
+  redis-commander:
+    container_name: redis-commander
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8082:8081"
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.14.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch_p:9200
+    ports:
+      - 5601:5601
+    links:
+      - elasticsearch
+    depends_on:
+      - elasticsearch
+
+  apm:
+    container_name: apm
+    image: docker.elastic.co/apm/apm-server:7.14.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch_p:9200
+    ports:
+      - "8200:8200"
+    links:
+      - elasticsearch
+      - kibana
+    depends_on:
+      - elasticsearch
+      - kibana
