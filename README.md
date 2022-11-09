@@ -8,4 +8,4 @@ cd opt/kafka_2.13-2.8.1/bin
 to test: kafka-topics.sh --zookeeper zookeeper:2181 --list
 see messages: kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic testtopic --from-beginning
 
-![https://github.com/Jardelpz/newsletter_kafka/blob/main/arq.png]("arq")
+!["Arq"](https://github.com/Jardelpz/newsletter_kafka/blob/main/arq.png)
