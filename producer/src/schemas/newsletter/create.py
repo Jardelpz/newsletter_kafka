@@ -26,25 +26,21 @@ class GenreType(Enum):
 
 
 class CreateLetter(BaseModel):
-    id: Optional[str]
+    idt: str = None
     title: str
-    genre: GenreType
+    genre: str
     body: str
     images: Optional[str]
-    creation_date: Optional[str]
+    creation_date: str = None
 
-    @validator('id', pre=True)
-    def set_id(cls, id):
-        return str(uuid.uuid4())
+    @validator('idt', pre=True,always=True)
+    def set_id(cls, idt):
+        return idt or str(uuid.uuid4())
 
-    @validator('genre', pre=True)
-    def set_genre(cls, genre):
-        return get_genre(genre)
+    @validator('creation_date', pre=True, always=True)
+    def set_creation_date(cls, creation_date):
+        return creation_date or datetime.datetime.now().isoformat()
 
-    @validator('creation_date', pre=True)
-    def set_creation_date(cls, arg):
-        return datetime.datetime.now().isoformat()
-
-    @validator('images', pre=True)
+    @validator('images', pre=True, always=True)
     def convert_images_to_str(cls, images):
         return json.dumps(images)

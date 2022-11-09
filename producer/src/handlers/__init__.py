@@ -1,4 +1,4 @@
-from newsletter import Newsletter
-from user import User
+from src.handlers.newsletter import Newsletter
+from src.handlers.subscription import Subscription
 
-__all__ = (newsletter, user)
+__all__ = (Newsletter, Subscription)
