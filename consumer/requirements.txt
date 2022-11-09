@@ -1,6 +1,5 @@
 requests
-kafka
 pydantic
-elastic-apm
 elasticsearch~=8.5.0
-decouple
+kafka-python==2.0.2
+python-decouple==3.6
