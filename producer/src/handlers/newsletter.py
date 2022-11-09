@@ -33,10 +33,10 @@ class Newsletter(Resource):
         # send to kafka
         # send to cache
         # cover by apm
-        # logging.info('sending news to cache!')
-        # self.cache.save(news.title, news)
-        # logging.info('sending message to kafka topic!')
-        # self.kafka.send_message(news.json())
+        logging.info('sending news to cache!')
+        self.cache.save(news.title, news)
+        logging.info('sending message to kafka topic!')
+        self.kafka.send_message(news.json())
         self.db.insert_news(news)
         return 'Upload done!', 201
 
