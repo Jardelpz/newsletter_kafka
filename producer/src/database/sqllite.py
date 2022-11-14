@@ -11,7 +11,7 @@ class SqlLite:
         self.start_db()
 
     def start_db(self):
-        conn = self.create_connection('./newsletter.db') #esta base precisara ser compartilha entre produtor e consumidor para acessar a mesma informacao (mudar path)
+        conn = self.create_connection('C:/Users/Jardel/PycharmProjects/online-news-kafka/newsletter.db')
         if conn is not None:
             self.conn = conn
             sql_newsletter = """ CREATE TABLE IF NOT EXISTS news (
