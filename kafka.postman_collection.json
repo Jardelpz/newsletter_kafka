@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "3b40e0ea-b302-4a12-8ab4-11e6e88a6faf",
+		"name": "kafka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8894143"
+	},
+	"item": [
+		{
+			"name": "health-check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/hc",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"hc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "publish-news",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"História do Brasil\",\r\n    \"genre\": \"historia\",\r\n    \"body\": [\r\n        {\r\n            \"subtitle\": \"Inicio\",\r\n            \"content\": \"Os tupis se espalhavam do atual Rio Grande do Sul ao Rio Grande do Norte de hoje,[33] sendo a primeira raça indígena que teve contato com o colonizador e decorrentemente a de maior presença, com influência no mameluco, no mestiço, no luso-brasileiro que nascia e no europeu que se fixava\",\r\n            \"image\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Desembarque_de_Pedro_%C3%81lvares_Cabral_em_Porto_Seguro_em_1500_by_Oscar_Pereira_da_Silva_%281865%E2%80%931939%29.jpg/220px-Desembarque_de_Pedro_%C3%81lvares_Cabral_em_Porto_Seguro_em_1500_by_Oscar_Pereira_da_Silva_%281865%E2%80%931939%29.jpg\"\r\n        },\r\n        {\r\n            \"subtitle\": \"O ouro\",\r\n            \"content\": \"Em meados do século XVI, quando o açúcar de cana tornou-se o mais importante produto de exportação do Brasil,[50] os portugueses iniciaram a importação de escravos africanos, comprados nos mercados de escravos da África Ocidental.[51][52] Assim, estes começaram a ser trazidos ao Brasil, inicialmente para lidar com a crescente demanda internacional do produto, naquele que foi denominado ciclo do açúcar\",\r\n            \"image\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Replica_da_sede_administrativa_do_Quilombo.jpg/220px-Replica_da_sede_administrativa_do_Quilombo.jpg\"\r\n        },\r\n        {\r\n            \"content\": \"Ao final do século XVII, devido à concorrência colonial as exportações de açúcar brasileiro começaram a declinar, mas a descoberta de ouro pelos bandeirantes na década de 1690 abriu um novo ciclo para a economia extrativista da colônia, promovendo uma febre do ouro no Brasil, que atraiu milhares de novos colonos, vindos não só de Portugal, mas também de outras colônias portugu\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/newsletter",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"newsletter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subscribe-user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"jardel\",\r\n    \"genre\": \"historia\",\r\n    \"age\": 22,\r\n    \"email\": \"jardel123zermiani@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/subscription",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"subscription"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get news",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/newsletter?title=fdsf",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"newsletter"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "fdsf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete title",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/newsletter?title=fdsf",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"newsletter"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "fdsf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get subscription genre by email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/subscription?email=sfsdfs@gmail.com",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"subscription"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "sfsdfs@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete subscription",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"genre\": \"romance\",\r\n    \"email\": \"sfsdfs@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/subscription",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"subscription"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
