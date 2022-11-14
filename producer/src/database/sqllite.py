@@ -2,14 +2,13 @@ import sqlite3
 from sqlite3 import Error
 from src.schemas.newsletter.create import CreateLetter
 from src.schemas.subscription.create import Subscription
-from src.utils.apm import ElasticAPM
+from src.utils.apm import apm
 
 
 class SqlLite:
-    def __init__(self, apm: ElasticAPM):
+    def __init__(self):
         self.conn = None
         self.start_db()
-        self.apm = apm
 
     def start_db(self):
         conn = self.create_connection('./newsletter.db') #esta base precisara ser compartilha entre produtor e consumidor para acessar a mesma informacao (mudar path)
@@ -20,8 +19,7 @@ class SqlLite:
                                                     title string NOT NULL,
                                                     genre string NOT NULL,
                                                     body string NOT NULL,
-                                                    creation_date string NOT NULL,
-                                                    images string
+                                                    creation_date string NOT NULL
                                                 ); """
 
             sql_subscription = """ CREATE TABLE IF NOT EXISTS subscription (
@@ -42,7 +40,7 @@ class SqlLite:
             conn = sqlite3.connect(db_file)
             return conn
         except Error as e:
-            self.apm.capture_exception(e)
+            apm.capture_exception()
             print(e)
 
         return conn
@@ -52,19 +50,20 @@ class SqlLite:
             c = self.conn.cursor()
             c.execute(create_table_sql)
         except Error as e:
-            self.apm.capture_exception(e)
+            apm.capture_exception()
             print(e)
 
     def insert_news(self, newsletter: CreateLetter):
-        data = (newsletter.idt, newsletter.title, newsletter.genre, newsletter.body, newsletter.images, newsletter.creation_date)
-        sql = ''' INSERT INTO news(idt, title, genre, body, images, creation_date)
-                  VALUES(?,?,?,?,?,?) '''
+        data = (newsletter.idt, newsletter.title, newsletter.genre, newsletter.body, newsletter.creation_date)
+        sql = ''' INSERT INTO news(idt, title, genre, body, creation_date)
+                  VALUES(?,?,?,?,?) '''
         try:
             cur = self.conn.cursor()
             cur.execute(sql, data)
             self.conn.commit()
         except Exception as e:
-            self.apm.capture_exception(e)
+            apm.capture_exception()
+            print(e)
             print(e)
 
         return cur.lastrowid
@@ -80,7 +79,7 @@ class SqlLite:
 
     def select_news_by_title(self, title):
         cur = self.conn.cursor()
-        cur.execute("SELECT idt, title, genre, body, images, creation_date FROM news WHERE title=?", (title,))
+        cur.execute("SELECT idt, title, genre, body, creation_date FROM news WHERE title=?", (title,))
 
         rows = cur.fetchall()
         result = []
@@ -91,8 +90,7 @@ class SqlLite:
                     'title': row[1],
                     'genre': row[2],
                     'body': row[3],
-                    'images': row[4],
-                    'creation_date': row[5]
+                    'creation_date': row[4]
                 })
 
         return result

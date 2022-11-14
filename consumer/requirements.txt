@@ -1,5 +1,7 @@
 requests
 pydantic
-elasticsearch~=8.5.0
+elasticsearch~=7.10.0
 kafka-python==2.0.2
 python-decouple==3.6
+elastic-apm
+psutil

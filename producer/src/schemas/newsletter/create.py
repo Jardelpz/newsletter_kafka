@@ -4,7 +4,7 @@ import uuid
 
 from pydantic import BaseModel, validator
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
 
 def get_genre(genre):
@@ -25,12 +25,17 @@ class GenreType(Enum):
     SPORT = 'sport'
 
 
+class Body(BaseModel):
+    subtitle: Optional[str]
+    content: str
+    image: Optional[str]
+
+
 class CreateLetter(BaseModel):
     idt: str = None
     title: str
     genre: str
-    body: str
-    images: Optional[str]
+    body: Union[List[Body], str]
     creation_date: str = None
 
     @validator('idt', pre=True,always=True)
@@ -41,6 +46,6 @@ class CreateLetter(BaseModel):
     def set_creation_date(cls, creation_date):
         return creation_date or datetime.datetime.now().isoformat()
 
-    @validator('images', pre=True, always=True)
-    def convert_images_to_str(cls, images):
-        return json.dumps(images)
+    @validator('body', pre=True, always=True)
+    def convert_body_to_str(cls, body):
+        return json.dumps(body)

@@ -1,15 +1,18 @@
+import json
+
 from src.database.sqllite import SqlLite
 
 from src.utils.elasticsearch import ESManager
-from src.utils.email import is_valid_email, send_email
+from src.utils.email_ import is_valid_email, send_email
 
 
 def process_message(db: SqlLite, message):
-    # es_client = ESManager()
+    es_client = ESManager()
     users = db.select_subscribers_by_genre(message.get('genre'))
-    # es_client.send_message(message, 'newsletter', 'newsletter_post')
     for user in users:
         if email := is_valid_email(user['email']):
-            send_email(user['email'], message['body'], message['title'])
-            # es_client.send_message(user, 'email', 'email_sent')
+            send_email(email, message['title'], json.loads(message['body']))
+            user['title'] = message['title']
+            es_client.send_message(user, 'email')
 
+    es_client.send_message(message, 'newsletter')

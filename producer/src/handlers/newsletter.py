@@ -3,22 +3,20 @@ import logging
 import pydantic
 
 from flask_restful import Resource
-from flask import request, jsonify
+from flask import request
 
-from src.utils.apm import apm
 from src.utils.kafka_ import Kafka
 from src.utils.redis import Cache
 from src.schemas.newsletter.create import CreateLetter
 from src.database.sqllite import SqlLite
-
+from src.utils.apm import apm
 
 class Newsletter(Resource):
 
     def __init__(self):
         self.cache = Cache()
         self.kafka = Kafka()
-        # self.apm = apm
-        self.db = SqlLite(apm)
+        self.db = SqlLite()
 
     def post(self):
         payload = request.json
@@ -26,7 +24,7 @@ class Newsletter(Resource):
         try:
             news = CreateLetter(**payload)
         except pydantic.ValidationError as e:
-            self.apm.capture_exception(e)
+            apm.capture_exception()
             return 'error in request body', 422
 
         # save to database

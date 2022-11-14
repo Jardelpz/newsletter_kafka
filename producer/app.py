@@ -9,6 +9,7 @@ app.url_map.strict_slashes = False
 app.config['ELASTIC_APM'] = ELASTIC_APM
 app.config['DEBUG'] = True
 
+
 apm.init_app(app)
 make_resources(app)
 

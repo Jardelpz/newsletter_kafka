@@ -1,6 +1,4 @@
 import json
-import sys
-import os
 import ast
 
 from kafka import KafkaConsumer
@@ -25,9 +23,8 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except KeyboardInterrupt:
-        print('Interrupted')
-        try:
-            sys.exit(0)
-        except SystemExit:
-            os.exit(0)
+    except Exception as e:
+        print(e)
+
+# trabalhar com cenario - e se meu produtor mandar mensagem pro topico e ningue tiver consumindo
+# eu perco a mensagem? tem o earlsit na isntancia do consumer que faz algo assim acho
