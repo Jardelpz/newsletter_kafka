@@ -15,3 +15,6 @@ class Cache:
     def get(self, key):
         if data := self.cache.hget('post_content', key):
             return pickle.loads(data)
+
+    def delete(self, key):
+        self.cache.hdel('post_content', key)

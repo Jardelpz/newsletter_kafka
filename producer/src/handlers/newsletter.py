@@ -11,6 +11,7 @@ from src.schemas.newsletter.create import CreateLetter
 from src.database.sqllite import SqlLite
 from src.utils.apm import apm
 
+
 class Newsletter(Resource):
 
     def __init__(self):
@@ -41,6 +42,7 @@ class Newsletter(Resource):
     def delete(self):
         # delete post from database
         title = request.args.get('title')
+        self.cache.delete(title)
         self.db.delete_by_title(title)
         return "title deleted", 200
 
