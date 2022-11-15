@@ -7,3 +7,4 @@ pydantic~=1.10.2
 kafka-python==2.0.2
 pydantic-sqlite
 psutil
+blinker
